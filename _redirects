@@ -1,0 +1,4 @@
+# netlify redirects file
+
+# rewrite / to /install.sh (without redirect)
+/	/install.sh	200
