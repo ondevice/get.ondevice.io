@@ -86,7 +86,7 @@ installDebian() {
 
 installHomebrew() {
 	echo '-- install ondevice using macOS homebrew' >&2
-	brew install ondevice/ondevice/ondevice
+	brew install ondevice/tap/ondevice
 }
 
 _detectOS
