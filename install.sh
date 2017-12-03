@@ -3,6 +3,7 @@
 # installs the ondevice client
 #
 # On Debian based systems, this'll use the repo.ondevice.io/debian/ package repository
+# On macOS, it'll use homebrew if available
 # everywhere else, it'll detect the OS and architecture and download the matching
 # `ondevice` binary.
 #
@@ -46,7 +47,7 @@ _detectArch() {
 		ARCH=amd64
 	elif uname -m | grep -iq i.86; then
 		ARCH=i386
-	elif uname -m | grep -iq armv6l; then
+	elif uname -m | grep -qwe 'armv[67]l'; then
 		ARCH=armhf
 	else
 		echo ------------ >&2
