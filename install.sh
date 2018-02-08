@@ -99,15 +99,18 @@ if _useApt; then
 elif [ "$OS" == macos -a -x /usr/local/bin/brew ]; then
 	installHomebrew
 else
-	echo "-- installing ondevice on $OS - $ARCH"
+	echo "-- installing ondevice on $OS - $ARCH" >&2
 
-	TGTDIR=/usr/local/bin
-	if [ ! -d "$TGTDIR" ]; then
-		echo "Couldn't find target directory: $TGTDIR" >&2
+	VERSION="$(curl -fsSL https://repo.ondevice.io/client/version.txt)"
+	echo "-- stable version is '$VERSION', downloading and extracting .tgz" >&2
+	cd /
+	curl -fSL "https://repo.ondevice.io/client/v${VERSION}/ondevice_${VERSION}_${OS}-${ARCH}.tgz" | tar xvz
+	if ! [ -x /usr/bin/ondevice ]; then
+		echo "ERROR: Couldn't find /usr/bin/ondevice! The installation seems to have failed :(" >&2
 		exit 1
 	fi
-	curl -fSL -o "$TGTDIR/ondevice" "https://repo.ondevice.io/client/stable/$OS/$ARCH/ondevice"
-	chmod +x "$TGTDIR/ondevice"
+
+	echo "-- done :)" >&2
 fi
 
 
