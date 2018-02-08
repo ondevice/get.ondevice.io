@@ -82,11 +82,15 @@ installDebian() {
 	echo '-- installing ondevice .deb package' >&2
 	apt-get update || true
 	apt-get install -y ondevice
+
+	DEVICE_MSG="install the 'ondevice-daemon' package and follow the instructions."
 }
 
 installHomebrew() {
 	echo '-- install ondevice using macOS homebrew' >&2
 	brew install ondevice/tap/ondevice
+
+	DEVICE_MSG="run 'brew services start ondevice-daemon'"
 }
 
 _detectOS
@@ -111,6 +115,20 @@ else
 	fi
 
 	echo "-- done :)" >&2
+
+	DEVICE_MSG="enable the 'ondevice-daemon' systemd service or init script"
 fi
 
+cat >&2 <<EOF
+
+=============================================
+Thanks for installing ondevice.
+Call 'ondevice login' to set up your account credentials.
+
+To set this computer up as a device, $DEVICE_MSG
+
+Have a look at https://docs.ondevice.io/ for further information.
+=============================================
+
+EOF
 
