@@ -108,7 +108,7 @@ else
 	VERSION="$(curl -fsSL https://repo.ondevice.io/client/version.txt)"
 	echo "-- stable version is '$VERSION', downloading and extracting .tgz" >&2
 	cd /
-	curl -fSL "https://repo.ondevice.io/client/v${VERSION}/ondevice_${VERSION}_${OS}-${ARCH}.tgz" | tar xvz
+	curl -fSL "https://repo.ondevice.io/client/v${VERSION}/ondevice_${VERSION}_${OS}-${ARCH}.tgz" | tar xvvhz
 	if ! [ -x /usr/bin/ondevice ]; then
 		echo "ERROR: Couldn't find /usr/bin/ondevice! The installation seems to have failed :(" >&2
 		exit 1
